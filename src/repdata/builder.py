@@ -3,23 +3,12 @@ from typing import Any
 
 import pandas as pd  # type: ignore
 
-from repdata.cleanup import clean_dataframe  # or define locally
+from repdata.cleanup import clean_report_dict
 from repdata.config import get_sync_dir
 from repdata.loader import load_tables
 from repdata.logger import setup_logger
 
 logger = setup_logger(__name__)
-
-
-def clean_report_dict(d: dict[str, Any]) -> dict[str, Any]:
-    return {
-        key: (
-            clean_dataframe(pd.DataFrame(val)).to_dict(orient="records")
-            if isinstance(val, list)
-            else clean_dataframe(pd.DataFrame([val])).iloc[0].to_dict()
-        )
-        for key, val in d.items()
-    }
 
 
 def filter_by_zakno(df: pd.DataFrame, column: str, zakno: int) -> pd.DataFrame:

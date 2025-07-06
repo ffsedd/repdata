@@ -1,4 +1,5 @@
 import pandas as pd  # type: ignore
+from typing import Any
 
 
 def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
@@ -24,3 +25,14 @@ def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
             df[col] = df[col].map({"ano": True, "ne": False})
 
     return df
+
+
+def clean_report_dict(d: dict[str, Any]) -> dict[str, Any]:
+    return {
+        key: (
+            clean_dataframe(pd.DataFrame(val)).to_dict(orient="records")
+            if isinstance(val, list)
+            else clean_dataframe(pd.DataFrame([val])).iloc[0].to_dict()
+        )
+        for key, val in d.items()
+    }
