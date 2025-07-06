@@ -1,0 +1,19 @@
+[project]
+name = "repdata"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "ffsedd", email = "ffsedd@gmail.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "pandas>=2.3.0",
+]
+
+[project.scripts]
+repdata = "repdata:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
